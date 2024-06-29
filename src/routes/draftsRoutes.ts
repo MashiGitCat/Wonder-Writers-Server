@@ -1,11 +1,11 @@
-// draftsRoutes.ts
+
 import { Router, Request, Response } from 'express';
 import Draft from '../models/drafts';
 import { requireAuth } from '../middleware/authMiddleware';
 
 const router = Router();
 
-// Save a new draft
+
 router.post('/drafts', requireAuth, async (req: any, res: Response) => {
   try {
     const { title, author, imagePosition } = req.body;
@@ -22,7 +22,7 @@ router.post('/drafts', requireAuth, async (req: any, res: Response) => {
   }
 });
 
-// Get all drafts for the logged-in user
+
 router.get('/drafts', requireAuth, async (req: any, res: Response) => {
   try {
     const drafts = await Draft.find({ userId: req.auth.userId });
