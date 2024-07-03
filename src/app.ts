@@ -5,15 +5,27 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import connectDB from "./config/db";
 import userRoutes from "./routes/userRoutes";
-import draftRoutes from "./routes/draftsRoutes"
+import draftRoutes from "./routes/draftsRoutes";
+
 dotenv.config();
 connectDB();
 
 const app = express();
 
+const allowedOrigins = [
+  "http://localhost:3000",
+  "https://wonderwriters.onrender.com"
+];
+
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: function (origin, callback) {
+      if (allowedOrigins.indexOf(origin as string) !== -1 || !origin) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
   })
 );
 
@@ -26,5 +38,5 @@ app.get("/", (req, res) => {
   res.send("Server is up and running!");
 });
 
-const PORT = process.env.PORT || 8080;
+const PORT: string = process.env.PORT || '8080';
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
