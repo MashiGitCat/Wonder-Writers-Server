@@ -30,7 +30,7 @@ router.post('/login', async (req, res) => {
       return res.status(401).json({ error: true, message: 'Invalid credentials' });
     }
     const token = jwt.sign(
-      { userId: user._id.toString() },
+      { userId: (user._id as unknown as string).toString() },
       process.env.JWT_SECRET!,
       { expiresIn: '1d' }
     );
@@ -41,6 +41,6 @@ router.post('/login', async (req, res) => {
 });
 router.get('/protected', requireAuth, (req: any, res: Response) => {
   const userId = req.auth.userId; 
-  res.send(`This is a protected route accessed by user ID: ${userId}`);
+  res.json(`This is a protected route accessed by user ID: ${userId}`);
 });
 export default router;
