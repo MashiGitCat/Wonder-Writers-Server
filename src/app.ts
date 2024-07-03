@@ -15,7 +15,7 @@ const app = express();
 
 const allowedOrigins = [
   "http://localhost:3000",
-  "https://wonderwriters.onrender.com",
+  "https://wonderwriters.onrender.com"
 ];
 
 app.use(
@@ -36,12 +36,12 @@ app.use("/api/users", userRoutes);
 app.use("/api", draftRoutes);
 
 // Serve static files from the 'build' directory
-app.use(express.static(path.join(__dirname, "build")));
+app.use(express.static(path.join(__dirname, "../build")));
 
 // The "catchall" handler: for any request that doesn't match one above, send back React's index.html file.
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "build", "index.html"));
+  res.sendFile(path.join(__dirname, "../build", "index.html"));
 });
 
-const PORT: string = process.env.PORT || "8080";
+const PORT: string = process.env.PORT || '8080';
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
