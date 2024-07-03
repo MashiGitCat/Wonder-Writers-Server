@@ -15,7 +15,7 @@ const app = express();
 
 const allowedOrigins = [
   "http://localhost:3000",
-  "https://wonderwriters.onrender.com",
+  "https://wonderwriters.onrender.com"
 ];
 
 app.use(
@@ -43,5 +43,5 @@ app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "../client/build", "index.html"));
 });
 
-const PORT: string = process.env.PORT || "8080";
+const PORT: string = process.env.PORT || '8080';
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

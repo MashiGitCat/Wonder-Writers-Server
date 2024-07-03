@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/static/css/main.36e9cb5b.css",
+    "main.js": "/static/js/main.a472f198.js",
+    "static/media/Literata-Regular.ttf": "/static/media/Literata-Regular.3f947d5f0879a6402f50.ttf",
+    "static/media/Merriweather-Regular.ttf": "/static/media/Merriweather-Regular.da67ca8c38ef44c4773d.ttf",
+    "static/media/American Typewriter Regular.ttf": "/static/media/American Typewriter Regular.5070e3975638666109d3.ttf",
+    "index.html": "/index.html",
+    "main.36e9cb5b.css.map": "/static/css/main.36e9cb5b.css.map",
+    "main.a472f198.js.map": "/static/js/main.a472f198.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.36e9cb5b.css",
+    "static/js/main.a472f198.js"
+  ]
+}
