@@ -5,26 +5,46 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import connectDB from "./config/db";
 import userRoutes from "./routes/userRoutes";
-import draftRoutes from "./routes/draftsRoutes"
+import draftRoutes from "./routes/draftsRoutes";
+import path from "path";
+import helmet from "helmet"; // Ensure helmet is imported
+
 dotenv.config();
 connectDB();
 
 const app = express();
 
+// Use helmet to set various HTTP headers for security
+app.use(helmet());
+
+const allowedOrigins = [
+  "http://localhost:3000",
+  "https://wonderwriters.onrender.com"
+];
+
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true
   })
 );
 
 app.use(bodyParser.json());
 
 app.use("/api/users", userRoutes);
-app.use("/api", draftRoutes); 
+app.use("/api", draftRoutes);
 
-app.get("/", (req, res) => {
-  res.send("Server is up and running!");
+app.use(express.static(path.join(__dirname, "../build")));
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../build", "index.html"));
 });
 
-const PORT = process.env.PORT || 8080;
+const PORT: string = process.env.PORT || '8080';
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
