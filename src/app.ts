@@ -7,26 +7,16 @@ import connectDB from "./config/db";
 import userRoutes from "./routes/userRoutes";
 import draftRoutes from "./routes/draftsRoutes";
 import path from "path";
+import helmet from "helmet"; // Ensure helmet is imported
 
 dotenv.config();
 connectDB();
 
 const app = express();
 
-const allowedOrigins = [
-  "http://localhost:3000",
-  "https://wonderwriters.onrender.com"
-];
-
 app.use(
   cors({
-    origin: function (origin, callback) {
-      if (!origin || allowedOrigins.indexOf(origin) !== -1) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
+    origin: "http://localhost:3000",
   })
 );
 
@@ -35,12 +25,8 @@ app.use(bodyParser.json());
 app.use("/api/users", userRoutes);
 app.use("/api", draftRoutes);
 
-// Serve static files from the 'build' directory
-app.use(express.static(path.join(__dirname, "../build")));
-
-// The "catchall" handler: for any request that doesn't match one above, send back React's index.html file.
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "../build", "index.html"));
+app.get("/", (req, res) => {
+  res.send("Server is up and running!");
 });
 
 const PORT: string = process.env.PORT || '8080';
