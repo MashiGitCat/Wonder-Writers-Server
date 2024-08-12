@@ -5,7 +5,7 @@ import { requireAuth } from "../middleware/authMiddleware";
 
 const router = Router();
 
-router.post("/register", async (req, res) => {
+router.post("/register", async (req: Request, res: Response) => {
   try {
     const { username, email, password, birthDate, country } = req.body;
     const newUser = new User({ username, email, password, birthDate, country });
@@ -17,7 +17,7 @@ router.post("/register", async (req, res) => {
   }
 });
 
-router.post("/login", async (req, res) => {
+router.post("/login", async (req: Request, res: Response) => {
   try {
     const { email, password } = req.body;
     const user = await User.findOne({ email });
@@ -42,8 +42,10 @@ router.post("/login", async (req, res) => {
       .json({ error: true, message: error.message || "Server error" });
   }
 });
+
 router.get("/protected", requireAuth, (req: any, res: Response) => {
   const userId = req.auth.userId;
   res.json(`This is a protected route accessed by user ID: ${userId}`);
 });
+
 export default router;
