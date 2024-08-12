@@ -10,7 +10,6 @@ import path from "path";
 import helmet from "helmet";
 import cookieParser from "cookie-parser";
 
-dotenv.config();
 connectDB();
 
 const app = express();
@@ -40,12 +39,6 @@ app.use(cookieParser());
 
 app.use("/api/users", userRoutes);
 app.use("/api", draftRoutes);
-
-app.use(express.static(path.join(__dirname, "../build")));
-
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "../build", "index.html"));
-});
 
 const PORT: string = process.env.PORT || "8080";
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
